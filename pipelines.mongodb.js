@@ -164,21 +164,43 @@ use("kec-crud");
 //? find 5 movies whose rating is greater than 8
 //?  and id is sorted in ascending order
 
+// db.movies.aggregate([
+//   {
+//     $match: {
+//       "rating.average": { $gt: 8 },
+//     },
+//   },
+//   {
+//     $sort: {
+//       id: 1,
+//     },
+//   },
+//   { $limit: 5 },
+//   {
+//     $project: {
+//       averageRating: "$rating.average",
+//       name: 1,
+//       _id: 0,
+//       id: 1,
+//     },
+//   }
+// ]);
+
+//* $skip
+
 db.movies.aggregate([
   {
-    $match: {
-      "rating.average": { $gt: 8 },
-    },
+    $match: {},
   },
   {
     $sort: {
       id: 1,
     },
   },
-  { $limit: 5 },
+  { $skip: 5 },
+  { $limit: 2 },
   {
     $project: {
-      averageRating: "$rating.average",
       name: 1,
       _id: 0,
       id: 1,
