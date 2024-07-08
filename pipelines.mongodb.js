@@ -188,22 +188,48 @@ use("kec-crud");
 
 //* $skip
 
-db.movies.aggregate([
-  {
-    $match: {},
-  },
-  {
-    $sort: {
-      id: 1,
-    },
-  },
-  { $skip: 5 },
-  { $limit: 2 },
-  {
-    $project: {
-      name: 1,
-      _id: 0,
-      id: 1,
-    },
-  },
-]);
+// db.movies.aggregate([
+//   {
+//     $match: {},
+//   },
+//   {
+//     $sort: {
+//       id: 1,
+//     },
+//   },
+//   { $skip: 5 },
+//   { $limit: 2 },
+//   {
+//     $project: {
+//       name: 1,
+//       _id: 0,
+//       id: 1,
+//     },
+//   },
+// ]);
+
+//? $skip (in pagination)
+
+// let page = 2;
+// let limit = 10;
+// let skip = (page - 1) * limit; //? Skip's formula for pagination
+
+// db.movies.aggregate([
+//   {
+//     $match: {},
+//   },
+//   {
+//     $sort: {
+//       id: 1,
+//     },
+//   },
+//   { $skip: skip },
+//   { $limit: limit },
+//   {
+//     $project: {
+//       name: 1,
+//       _id: 0,
+//       id: 1,
+//     },
+//   },
+// ]);
