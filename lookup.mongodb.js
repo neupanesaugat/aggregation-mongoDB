@@ -139,3 +139,35 @@ use("kec-crud");
 //     },
 //   },
 // ]);
+
+//? find owner of Ford Mustang car
+
+db.vehicle.aggregate([
+  {
+    $match: {
+      model: "Mustang",
+    },
+  },
+  {
+    $lookup: {
+      from: "person",
+      localField: "ownerId",
+      foreignField: "_id",
+      as: "ownerDetail",
+    },
+  },
+  {
+    $project: {
+      carName: { $concat: ["$brand", " ", "$model"] },
+      ownerFirstName: { $first: "$ownerDetail.firstName" },
+      ownerLastName: { $first: "$ownerDetail.lastName" },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      carName: 1,
+      ownerName: { $concat: ["$ownerFirstName", " ", "$ownerLastName"] },
+    },
+  },
+]);
